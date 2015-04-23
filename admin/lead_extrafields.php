@@ -42,7 +42,7 @@ $extrafields = new ExtraFields($db);
 $form = new Form($db);
 
 // List of supported format
-$tmptype2label = getStaticMember(get_class($extrafields), 'type2label');
+$tmptype2label = ExtraFields::$type2label;
 $type2label = array(
 	''
 );
@@ -153,4 +153,3 @@ if ($action == 'edit' && ! empty($attrname)) {
 llxFooter();
 
 $db->close();
-?>

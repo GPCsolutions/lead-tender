@@ -589,8 +589,7 @@ class modLead extends DolibarrModules
 	 * (defined in constructor) into Dolibarr database.
 	 * It also creates data directories
 	 *
-	 * @param string $options
-	 *        	enabling module ('', 'noboxes')
+	 * @param string $options Enabling module ('', 'noboxes')
 	 * @return int if OK, 0 if KO
 	 */
 	public function init($options = '')
@@ -607,8 +606,7 @@ class modLead extends DolibarrModules
 	 * Remove from database constants, boxes and permissions from Dolibarr database.
 	 * Data directories are not deleted
 	 *
-	 * @param string $options
-	 *        	enabling module ('', 'noboxes')
+	 * @param string $options Enabling module ('', 'noboxes')
 	 * @return int if OK, 0 if KO
 	 */
 	public function remove($options = '')

@@ -22,13 +22,12 @@
  */
 class ActionsLead // extends CommonObject
 {
-	
 	/**
 	 * Overloading the doActions function : replacing the parent's function with the one below
 	 *
-	 * @param parameters meta datas of the hook (context, etc...)
-	 * @param object the object you want to process (an invoice if you are in invoice module, a propale in propale's module, etc...)
-	 * @param action current action (if set). Generally create or edit or null
+	 * @param string[] $parameters meta datas of the hook (context, etc...)
+	 * @param Lead $object the object you want to process (an invoice if you are in invoice module, a propale in propale's module, etc...)
+	 * @param string $action current action (if set). Generally create or edit or null
 	 * @return void
 	 */
 	function showLinkedObjectBlock($parameters, $object, $action) {
@@ -51,7 +50,7 @@ class ActionsLead // extends CommonObject
 			
 			$ret = $lead->fetch_lead_link(($object->rowid ? $id = $object->rowid : $object->id), $object->table_element);
 			if ($ret < 0) {
-				setEventMessage($lead->error, 'errors');
+				setEventMessages(null, $lead->errors, 'errors');
 			}
 			// Build exlcude already linked lead
 			$array_exclude_lead = array ();
@@ -60,7 +59,7 @@ class ActionsLead // extends CommonObject
 			}
 			
 			print '<br>';
-			print_titre($langs->trans('Lead'));
+			print_fiche_titre($langs->trans('Lead'));
 			if (count($lead->doclines) == 0) {
 				print '<form action="' . dol_buildpath("/lead/lead/manage_link.php", 1) . '" method="POST">';
 				print '<input type="hidden" name="token" value="' . $_SESSION['newtoken'] . '">';
@@ -105,17 +104,15 @@ class ActionsLead // extends CommonObject
 				print "</form>";
 			}
 		}
-		
-		return 0;
 	}
 	
 	/**
 	 * addMoreActionsButtons Method Hook Call
 	 *
-	 * @param array $parameters parameters
-	 * @param Object &$object Object to use hooks on
-	 * @param string &$action Action code on calling page ('create', 'edit', 'view', 'add', 'update', 'delete'...)
-	 * @param object $hookmanager class instance
+	 * @param string[] $parameters parameters
+	 * @param CommonObject $object Object to use hooks on
+	 * @param string $action Action code on calling page ('create', 'edit', 'view', 'add', 'update', 'delete'...)
+	 * @param HookManager $hookmanager class instance
 	 * @return void
 	 */
 	function addMoreActionsButtons($parameters, &$object, &$action, $hookmanager) {
@@ -143,7 +140,7 @@ class ActionsLead // extends CommonObject
 				$filter['so.rowid'] = $object->id;
 				$resql = $lead->fetch_all('DESC', 't.date_closure', 0, 0, $filter);
 				if ($resql == - 1) {
-					setEventMessage($object->error, 'errors');
+					setEventMessages(null, $object->errors, 'errors');
 				}
 				
 				$total_lead = count($lead->lines);
@@ -151,7 +148,7 @@ class ActionsLead // extends CommonObject
 				// $filter['so.rowid'] = $object->id;
 				$resql = $lead->fetch_all('DESC', 't.date_closure', 4, 0, $filter);
 				if ($resql == - 1) {
-					setEventMessage($object->error, 'errors');
+					setEventMessages(null, $object->errors, 'errors');
 				}
 				
 				$num = count($lead->lines);
@@ -188,7 +185,7 @@ class ActionsLead // extends CommonObject
 			
 			$ret = $lead->fetch_lead_link(($object->rowid ? $id = $object->rowid : $object->id), $object->table_element);
 			if ($ret < 0) {
-				setEventMessage($lead->error, 'errors');
+				setEventMessages(null, $lead->errors, 'errors');
 			}
 			
 			if (count($lead->doclines) == 0) {
@@ -204,6 +201,5 @@ class ActionsLead // extends CommonObject
 				print '<script type="text/javascript">jQuery(document).ready(function () {jQuery(function() {jQuery(".tabsAction").append("' . $html . '");});});</script>';
 			}
 		}
-		return 0;
 	}
 }

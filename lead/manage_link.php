@@ -41,14 +41,14 @@ $redirect = GETPOST('redirect', 'alpha');
 $action=GETPOST('action');
 
 if (empty($leadid) || $leadid==-1) {
-	setEventMessage($langs->trans("ErrorFieldRequired", $langs->transnoentities("Lead")), 'errors');
+	setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentities("Lead")), null, 'errors');
 	$error ++;
 }
 
 if (! $error) {
 	$result = $object->fetch($leadid);
 	if ($result < 0) {
-		setEventMessage($object->error, 'errors');
+		setEventMessages(null, $object->errors, 'errors');
 		$error ++;
 	}
 }
@@ -57,7 +57,7 @@ if (! $error) {
 		
 		$result = $object->add_object_linked($tablename, $elementselectid);
 		if ($result < 0) {
-			setEventMessage($object->error, 'errors');
+			setEventMessages(null, $object->errors, 'errors');
 		}
 	}
 	if ($action == 'unlink') {
@@ -66,7 +66,7 @@ if (! $error) {
 		
 		$result = $object->deleteObjectLinked($sourceid, $sourcetype);
 		if ($result < 0) {
-			setEventMessage($object->error, 'errors');
+			setEventMessages(null, $object->errors, 'errors');
 		}
 	}
 }

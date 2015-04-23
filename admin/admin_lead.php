@@ -60,9 +60,9 @@ if ($action == 'updateMask') {
 		$error ++;
 	
 	if (! $error) {
-		setEventMessage($langs->trans("SetupSaved"), 'mesgs');
+		setEventMessages($langs->trans("SetupSaved"), null, 'mesgs');
 	} else {
-		setEventMessage($langs->trans("Error"), 'errors');
+		setEventMessages($langs->trans("Error"), null, 'errors');
 	}
 } 
 else if ($action == 'setmod') {
@@ -85,9 +85,9 @@ else if ($action == 'setmod') {
 		$error ++;
 	
 	if (! $error) {
-		setEventMessage($langs->trans("SetupSaved"), 'mesgs');
+		setEventMessages($langs->trans("SetupSaved"), null, 'mesgs');
 	} else {
-		setEventMessage($langs->trans("Error"), 'errors');
+		setEventMessages($langs->trans("Error"), null, 'errors');
 	}
 }
 
@@ -139,7 +139,10 @@ foreach ($dirmodels as $reldir) {
 				if ((substr($file, 0, 9) == 'mod_lead_') && substr($file, dol_strlen($file) - 3, 3) == 'php') {
 					$file = substr($file, 0, dol_strlen($file) - 4);
 					require_once $dir . $file . '.php';
-					
+
+					/**
+					 * @var ModeleNumRefLead $module
+					 */
 					$module = new $file();
 					
 					// Show modules according to features level

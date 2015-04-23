@@ -236,7 +236,7 @@ $resql = $object->fetch_all($sortorder, $sortfield, $conf->liste_limit, $offset,
 if ($resql != - 1) {
 	$num = $resql;
 		
-	print_barre_liste($title, $page, $_SERVEUR['PHP_SELF'], $option, $sortfield, $sortorder, '', $num, $nbtotalofrecords);
+	print_barre_liste($title, $page, $_SERVER['PHP_SELF'], $option, $sortfield, $sortorder, '', $num, $nbtotalofrecords);
 	
 	print '<form method="post" action="' . $_SERVER['PHP_SELF'] . '" name="search_form">' . "\n";
 	
@@ -319,17 +319,20 @@ if ($resql != - 1) {
 	$totalamountreal = 0;
 	
 	foreach ($object->lines as $line) {
+		/**
+		 * @var Lead $line
+		 */
 		
 		// Affichage tableau des lead
 		$var = ! $var;
-		print "<tr $bc[$var]>";
+		print '<tr ' . $bc[$var] . '>';
 		
 		// Ref
 		print '<td><a href="card.php?id=' . $line->id . '">' . $line->ref . '</a>';
 		if ($line->fk_c_status!=6) {
 			$result=$line->isObjectSignedExists();
 			if ($result<0) {
-				setEventMessage($line->error,'errors');
+				setEventMessages($line->error, null, 'errors');
 			}elseif ($result>0) {
 				print img_warning($langs->trans('LeadObjectWindExists'));
 			}
@@ -395,7 +398,7 @@ if ($resql != - 1) {
 			});';
 	print "\n" . '</script>' . "\n";
 } else {
-	setEventMessage($object->error, 'errors');
+	setEventMessages(null, $object->errors, 'errors');
 }
 
 if (!empty($socid)) {
