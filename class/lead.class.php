@@ -1240,13 +1240,16 @@ class Lead extends CommonObject {
 			return '';
 		}
 	}
+
 	/**
-	 * 
-	 * @param unknown $statut
-	 * @param unknown $mode
-	 * @return multitype:|string
+	 * Return formatted status
+	 *
+	 * @param int $statut Status step
+	 * @param int $mode Format mode
+	 *
+	 * @return string
 	 */
-	public function LibStatut ($statut,$mode) {
+	public function LibStatut($statut, $mode) {
 		
 		if ($mode==0) {
 			return $this->status[$statut];
@@ -1262,7 +1265,10 @@ class Lead extends CommonObject {
 			elseif ($statut==7) return img_picto($this->status[$statut],'statut8');
 			else return img_picto($this->status[$statut],'statut1');
 		}
+		// Unsupported mode
+		return '';
 	}
+
 	/**
 	 * Close proposal link to lead
 	 *
