@@ -21,11 +21,11 @@
 
 # Module label 'ModuleXXXName'
 # (where XXX is value of numeric property 'numero' of module)
-Module103111Name = Appels d'offres
+Module105302Name = Appels d'offres
 LeadLead = Appels d'offres
 # Module description 'ModuleXXXDesc'
 # (where XXX is value of numeric property 'numero' of module)
-Module103111Desc = Gestion d'appels d'offres
+Module105302Desc = Gestion d'appels d'offres
 LeadSimpleNumRefModelDesc = Retourne le numéro sous la forme LEA-yymm-nnnn où yy est l'année, mm le mois et nnnn un compteur séquentiel sans rupture et sans remise à 0
 
 #
@@ -48,10 +48,10 @@ LeadAboutPage = Page à propos de Appels d'offres
 #
 # Permissions
 #
-Permission1031111=Voir les appels d'offres
-Permission1031112=Modifier les appels d'offres
-Permission1031113=Supprimer les appels d'offres
-Permission1031114=Exporter les appels d'offres
+Permission1053021=Voir les appels d'offres
+Permission1053022=Modifier les appels d'offres
+Permission1053023=Supprimer les appels d'offres
+Permission1053024=Exporter les appels d'offres
 
 #
 # Dictionnaires

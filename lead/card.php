@@ -224,7 +224,7 @@ if ($action == "add") {
  * View
  */
 
-llxHeader('', $langs->trans('Module103111Name'));
+llxHeader('', $langs->trans('Module105302Name'));
 
 $form = new Form($db);
 $formlead = new FormLead($db);
@@ -339,7 +339,7 @@ if ($action == 'create' && $user->rights->lead->write) {
 } elseif ($action == 'edit') {
 	
 	$head = lead_prepare_head($object);
-	dol_fiche_head($head, 'card', $langs->trans('Module103111Name'), 0, dol_buildpath('/lead/img/object_lead.png', 1), 1);
+	dol_fiche_head($head, 'card', $langs->trans('Module105302Name'), 0, dol_buildpath('/lead/img/object_lead.png', 1), 1);
 	
 	print '<form name="editlead" action="' . $_SERVER["PHP_SELF"] . '?id=' . $object->id . '" method="POST">';
 	print '<input type="hidden" name="token" value="' . $_SESSION['newtoken'] . '">';
@@ -440,7 +440,7 @@ if ($action == 'create' && $user->rights->lead->write) {
 	 * Show object in view mode
 	 */
 	$head = lead_prepare_head($object);
-	dol_fiche_head($head, 'card', $langs->trans('Module103111Name'), 0, dol_buildpath('/lead/img/object_lead.png', 1), 1);
+	dol_fiche_head($head, 'card', $langs->trans('Module105302Name'), 0, dol_buildpath('/lead/img/object_lead.png', 1), 1);
 	
 	// Confirm form
 	$formconfirm = '';

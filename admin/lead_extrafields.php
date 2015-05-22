@@ -69,7 +69,7 @@ if (file_exists(DOL_DOCUMENT_ROOT . '/core/actions_extrafields.inc.php'))
  * View
  */
 
-$textobject = $langs->transnoentitiesnoconv("Module103111Name");
+$textobject = $langs->transnoentitiesnoconv("Module105302Name");
 
 llxHeader('', $langs->trans("LeadSetup"));
 
@@ -79,9 +79,9 @@ print "<br>\n";
 
 // Configuration header
 $head = leadAdminPrepareHead();
-dol_fiche_head($head, 'attributes', $langs->trans("Module103111Name"), 0, "lead@lead");
+dol_fiche_head($head, 'attributes', $langs->trans("Module105302Name"), 0, "lead@lead");
 
-print $langs->trans("DefineHereComplementaryAttributes", $langs->transnoentitiesnoconv("Module103111Name")) . '<br>' . "\n";
+print $langs->trans("DefineHereComplementaryAttributes", $langs->transnoentitiesnoconv("Module105302Name")) . '<br>' . "\n";
 print '<br>';
 
 // Load attribute_label

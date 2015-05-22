@@ -62,7 +62,7 @@ print_fiche_titre($langs->trans($page_name), $linkback);
 
 // Configuration header
 $head = leadAdminPrepareHead();
-dol_fiche_head($head, 'about', $langs->trans("Module103111Name"), 0, 'lead@lead');
+dol_fiche_head($head, 'about', $langs->trans("Module105302Name"), 0, 'lead@lead');
 
 // About page goes here
 echo $langs->trans("LeadAboutPage");

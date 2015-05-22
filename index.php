@@ -68,7 +68,7 @@ if (!empty($conf->global->LEAD_GRP_USER_AFFECT)) {
 
 $langs->load('lead@lead');
 
-llxHeader('', $langs->trans('Module103111Name'));
+llxHeader('', $langs->trans('Module105302Name'));
 
 $stats_lead= new LeadStats($db);
 if (!empty($userid) && $userid!=-1) $stats_lead->userid=$userid;

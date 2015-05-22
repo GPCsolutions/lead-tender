@@ -90,7 +90,7 @@ if ($id > 0 || ! empty($ref))
 		$object->fetch_thirdparty();
 
 		$head = lead_prepare_head($object);
-		dol_fiche_head($head, 'documents', $langs->trans('Module103111Name'), 0, dol_buildpath('/lead/img/object_lead.png', 1), 1);
+		dol_fiche_head($head, 'documents', $langs->trans('Module105302Name'), 0, dol_buildpath('/lead/img/object_lead.png', 1), 1);
 
 
 		// Construit liste des fichiers

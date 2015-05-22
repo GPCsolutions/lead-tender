@@ -21,11 +21,11 @@
 
 # Module label 'ModuleXXXName'
 # (where XXX is value of numeric property 'numero' of module)
-Module103111Name = Lead
+Module105302Name = Lead
 LeadLead= Lead
 # Module description 'ModuleXXXDesc'
 # (where XXX is value of numeric property 'numero' of module)
-Module103111Desc = Manages Lead
+Module105302Desc = Manages Lead
 LeadSimpleNumRefModelDesc=Return reference like LEA-yymm-nnnn where yy is the year, mm the month and nnnn a counter sequancial without reset
 
 #
@@ -49,10 +49,10 @@ LeadAboutPage = Lead about page
 #
 # Permissions
 #
-Permission1031111=See Lead
-Permission1031112=Update Lead
-Permission1031113=Delete Lead
-Permission1031114=Export Lead
+Permission1053021=See Lead
+Permission1053022=Update Lead
+Permission1053023=Delete Lead
+Permission1053024=Export Lead
 
 #
 # Dictionnaires

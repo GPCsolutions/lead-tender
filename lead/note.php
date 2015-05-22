@@ -73,7 +73,7 @@ if ($id > 0)
 {
 
     $head = lead_prepare_head($object);
-	dol_fiche_head($head, 'note', $langs->trans('Module103111Name'), 0, dol_buildpath('/lead/img/object_lead.png', 1), 1);
+	dol_fiche_head($head, 'note', $langs->trans('Module105302Name'), 0, dol_buildpath('/lead/img/object_lead.png', 1), 1);
 
 
 	print '<table class="border" width="100%">';

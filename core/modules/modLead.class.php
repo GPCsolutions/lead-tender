@@ -46,7 +46,7 @@ class modLead extends DolibarrModules
 		// Id for module (must be unique).
 		// Use a free id here
 		// (See in Home -> System information -> Dolibarr for list of used modules id).
-		$this->numero = 103111;
+		$this->numero = 105302;
 		// Key text used to identify module (for permissions, menus, etc...)
 		$this->rights_class = 'lead';
 		
@@ -62,7 +62,7 @@ class modLead extends DolibarrModules
 		// (where XXX is value of numeric property 'numero' of module)
 		$this->description = "Description of module Lead";
 		// Possible values for version are: 'development', 'experimental' or version
-		$this->version = '1.2';
+		$this->version = '0.0.1';
 		// Key used in llx_const table to save module status enabled/disabled
 		// (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_' . strtoupper($this->name);
@@ -177,7 +177,7 @@ class modLead extends DolibarrModules
 		// Array to add new pages in new tabs
 		// Example:
 		$this->tabs = array(
-			'thirdparty:+tabLead:Module103111Name:lead@lead:$user->rights->lead->read:/lead/lead/list.php?socid=__ID__',
+			'thirdparty:+tabLead:Module105302Name:lead@lead:$user->rights->lead->read:/lead/lead/list.php?socid=__ID__',
 			//'invoice:+tabAgefodd:AgfMenuSess:agefodd@agefodd:/lead/lead/list.php?search_invoiceid=__ID__',
 			//'propal:+tabAgefodd:AgfMenuSess:agefodd@agefodd:/lead/lead/list.php?search_propalid=__ID__',
 		// // To add a new tab identified by code tabname1
@@ -265,25 +265,25 @@ class modLead extends DolibarrModules
 		// Permissions
 		$this->rights = array(); // Permission array used by this module
 		$r = 0;
-		$this->rights[$r][0] = 1031111;
+		$this->rights[$r][0] = 1053021;
 		$this->rights[$r][1] = 'See Leads';
 		$this->rights[$r][3] = 1;
 		$this->rights[$r][4] = 'read';
 		$r ++;
 		
-		$this->rights[$r][0] = 1031112;
+		$this->rights[$r][0] = 1053022;
 		$this->rights[$r][1] = 'Update Leads';
 		$this->rights[$r][3] = 1;
 		$this->rights[$r][4] = 'write';
 		$r ++;
 		
-		$this->rights[$r][0] = 1031113;
+		$this->rights[$r][0] = 1053023;
 		$this->rights[$r][1] = 'Delete Leads';
 		$this->rights[$r][3] = 1;
 		$this->rights[$r][4] = 'delete';
 		$r ++;
 		
-		$this->rights[$r][0] = 1031114;
+		$this->rights[$r][0] = 1053024;
 		$this->rights[$r][1] = 'Export Leads';
 		$this->rights[$r][3] = 1;
 		$this->rights[$r][4] = 'export';
@@ -297,7 +297,7 @@ class modLead extends DolibarrModules
 		$this->menu[$r] = array(
 			'fk_menu' => 0,
 			'type' => 'top',
-			'titre' => 'Module103111Name',
+			'titre' => 'Module105302Name',
 			'mainmenu' => 'lead',
 			'leftmenu' => '0',
 			'url' => '/lead/index.php',
@@ -313,8 +313,8 @@ class modLead extends DolibarrModules
 		$this->menu[$r] = array(
 			'fk_menu' => 'fk_mainmenu=lead',
 			'type' => 'left',
-			'titre' => 'Module103111Name',
-			'leftmenu' => 'Module103111Name',
+			'titre' => 'Module105302Name',
+			'leftmenu' => 'Module105302Name',
 			'url' => '/lead/lead/list.php',
 			'langs' => 'lead@lead',
 			'position' => 100+$r,
@@ -326,7 +326,7 @@ class modLead extends DolibarrModules
 		$r ++;
 		
 		$this->menu[$r] = array(
-			'fk_menu' => 'fk_mainmenu=lead,fk_leftmenu=Module103111Name',
+			'fk_menu' => 'fk_mainmenu=lead,fk_leftmenu=Module105302Name',
 			'type' => 'left',
 			'titre' => 'LeadCreate',
 			'url' => '/lead/lead/card.php?action=create',
@@ -340,7 +340,7 @@ class modLead extends DolibarrModules
 		$r ++;
 		
 		$this->menu[$r] = array(
-			'fk_menu' => 'fk_mainmenu=lead,fk_leftmenu=Module103111Name',
+			'fk_menu' => 'fk_mainmenu=lead,fk_leftmenu=Module105302Name',
 			'type' => 'left',
 			'titre' => 'LeadList',
 			'url' => '/lead/lead/list.php',
@@ -354,7 +354,7 @@ class modLead extends DolibarrModules
 		$r ++;
 		
 		$this->menu[$r] = array(
-			'fk_menu' => 'fk_mainmenu=lead,fk_leftmenu=Module103111Name',
+			'fk_menu' => 'fk_mainmenu=lead,fk_leftmenu=Module105302Name',
 			'type' => 'left',
 			'titre' => 'LeadListCurrent',
 			'url' => '/lead/lead/list.php?viewtype=current',
@@ -368,7 +368,7 @@ class modLead extends DolibarrModules
 		$r ++;
 		
 		$this->menu[$r] = array(
-			'fk_menu' => 'fk_mainmenu=lead,fk_leftmenu=Module103111Name',
+			'fk_menu' => 'fk_mainmenu=lead,fk_leftmenu=Module105302Name',
 			'type' => 'left',
 			'titre' => 'LeadListMyLead',
 			'url' => '/lead/lead/list.php?viewtype=my',
@@ -382,7 +382,7 @@ class modLead extends DolibarrModules
 		$r ++;
 		
 		$this->menu[$r] = array(
-			'fk_menu' => 'fk_mainmenu=lead,fk_leftmenu=Module103111Name',
+			'fk_menu' => 'fk_mainmenu=lead,fk_leftmenu=Module105302Name',
 			'type' => 'left',
 			'titre' => 'LeadListLate',
 			'url' => '/lead/lead/list.php?viewtype=late',
