@@ -23,12 +23,12 @@
  */
 
 // Dolibarr environment
-$res = @include ("../../main.inc.php"); // From htdocs directory
+$res = @include '../../main.inc.php'; // From htdocs directory
 if (! $res) {
-	$res = @include ("../../../main.inc.php"); // From "custom" directory
+	$res = @include '../../../main.inc.php'; // From "custom" directory
 }
 require_once DOL_DOCUMENT_ROOT . '/core/class/extrafields.class.php';
-require_once "../lib/lead.lib.php";
+require_once '../lib/lead.lib.php';
 
 if (! $user->admin)
 	accessforbidden();

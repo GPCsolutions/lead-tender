@@ -21,20 +21,20 @@
  * \ingroup lead
  * \brief list of lead
  */
-$res = @include ("../../main.inc.php"); // For root directory
+$res = @include '../../main.inc.php'; // For root directory
 if (! $res)
-	$res = @include ("../../../main.inc.php"); // For "custom" directory
+	$res = @include '../../../main.inc.php'; // For "custom" directory
 if (! $res)
 	die("Include of main fails");
 
-require_once (DOL_DOCUMENT_ROOT . '/societe/class/societe.class.php');
-require_once ('../class/lead.class.php');
-require_once ('../lib/lead.lib.php');
-require_once ('../class/html.formlead.class.php');
+require_once DOL_DOCUMENT_ROOT . '/societe/class/societe.class.php';
+require_once '../class/lead.class.php';
+require_once '../lib/lead.lib.php';
+require_once '../class/html.formlead.class.php';
 require_once DOL_DOCUMENT_ROOT . '/core/class/html.formother.class.php';
-require_once (DOL_DOCUMENT_ROOT . '/core/class/extrafields.class.php');
-require_once (DOL_DOCUMENT_ROOT . '/comm/propal/class/propal.class.php');
-require_once (DOL_DOCUMENT_ROOT . '/compta/facture/class/facture.class.php');
+require_once DOL_DOCUMENT_ROOT . '/core/class/extrafields.class.php';
+require_once DOL_DOCUMENT_ROOT . '/comm/propal/class/propal.class.php';
+require_once DOL_DOCUMENT_ROOT . '/compta/facture/class/facture.class.php';
 
 // Security check
 if (! $user->rights->lead->read)

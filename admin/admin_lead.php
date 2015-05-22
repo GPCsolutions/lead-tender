@@ -23,15 +23,16 @@
  * Put some comments here
  */
 // Dolibarr environment
-$res = @include ("../../main.inc.php"); // From htdocs directory
+$res = @include '../../main.inc.php'; // From htdocs directory
 if (! $res) {
-	$res = @include ("../../../main.inc.php"); // From "custom" directory
+	$res = @include '../../../main.inc.php'; // From "custom" directory
 }
 
 // Libraries
-require_once DOL_DOCUMENT_ROOT . "/core/lib/admin.lib.php";
+require_once DOL_DOCUMENT_ROOT . '/core/lib/admin.lib.php';
 require_once '../lib/lead.lib.php';
-require_once "../class/lead.class.php";
+require_once '../class/lead.class.php';
+
 // Translations
 $langs->load("lead@lead");
 

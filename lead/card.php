@@ -15,18 +15,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-$res = @include ("../../main.inc.php"); // For root directory
+$res = @include '../../main.inc.php'; // For root directory
 if (! $res)
-	$res = @include ("../../../main.inc.php"); // For "custom" directory
+	$res = @include '../../../main.inc.php'; // For "custom" directory
 if (! $res)
 	die("Include of main fails");
 
 require_once '../class/lead.class.php';
 require_once '../class/html.formlead.class.php';
 require_once '../lib/lead.lib.php';
-require_once (DOL_DOCUMENT_ROOT . '/core/lib/date.lib.php');
-require_once (DOL_DOCUMENT_ROOT . '/core/class/extrafields.class.php');
-require_once (DOL_DOCUMENT_ROOT . '/core/class/doleditor.class.php');
+require_once DOL_DOCUMENT_ROOT . '/core/lib/date.lib.php';
+require_once DOL_DOCUMENT_ROOT . '/core/class/extrafields.class.php';
+require_once DOL_DOCUMENT_ROOT . '/core/class/doleditor.class.php';
 if (! empty($conf->propal->enabled))
 	require_once DOL_DOCUMENT_ROOT . '/comm/propal/class/propal.class.php';
 if (! empty($conf->facture->enabled))
@@ -37,7 +37,7 @@ if (! empty($conf->commande->enabled))
 	require_once DOL_DOCUMENT_ROOT . '/commande/class/commande.class.php';
 if (!empty($conf->global->LEAD_GRP_USER_AFFECT))
 	require_once DOL_DOCUMENT_ROOT.'/user/class/usergroup.class.php';
-	
+
 // Security check
 if (! $user->rights->lead->read)
 	accessforbidden();
