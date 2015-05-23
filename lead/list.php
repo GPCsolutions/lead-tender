@@ -208,7 +208,7 @@ if (!empty($socid)) {
 	$societe->fetch($socid);
 	$head = societe_prepare_head($societe);
 	
-	dol_fiche_head($head, 'tabLead', $langs->trans("Module105302Name"),0,dol_buildpath('/lead/img/object_lead.png', 1));
+	dol_fiche_head($head, 'tabLead', $langs->trans("Module105302Name"),0,dol_buildpath('/lead/img/object_lead.png', 1),1);
 }
 /*if (! empty($search_invoiceid) || ! empty($search_invoiceref)) {
 	require_once DOL_DOCUMENT_ROOT . '/core/lib/invoice.lib.php';
@@ -251,9 +251,9 @@ if ($resql != - 1) {
 	if (! empty($socid))
 		print '<input type="hidden" name="socid" value="' . $socid . '"/>';
 	
-	$moreforfilter = $langs->trans('Period') . ' (' . $langs->trans("LeadDateDebut") . ')' . ': ';
-	$moreforfilter .= $langs->trans('Month') . ': <input class="flat" type="text" size="4" name="search_month" value="' . $search_month . '">';
-	$moreforfilter .= $langs->trans('Year') . ': ' . $formother->selectyear($search_year ? $search_year : - 1, 'search_year', 1, 20, 5) . '';
+	$moreforfilter = $langs->trans('Period') . ' (' . $langs->trans("LeadDeadLine") . ')' . ': ';
+	$moreforfilter .= $langs->trans('Month') . ': ' . $formother->select_month($search_month, 'search_month', true);
+	$moreforfilter .= $langs->trans('Year') . ': ' . $formother->selectyear($search_year ? $search_year : - 1, 'search_year', 1, 20, 5);
 	
 	if ($moreforfilter) {
 		print '<div class="liste_titre">';
