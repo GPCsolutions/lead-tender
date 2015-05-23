@@ -581,6 +581,55 @@ class modLead extends DolibarrModules
 		// $this->export_sql_end[$r] .= ' WHERE f.fk_soc = s.rowid '
 		// . 'AND f.rowid = fd.fk_facture';
 		// $r++;
+
+		// Extrafields
+		// TODO: Propose implementation upstream
+//		$this->extrafields = array (
+//			0 => array(
+//				'name' => 'wph',
+//				'label' => 'Mots par heures',
+//				'type' => 'int',
+//				'pos' => 0,
+//				'size' => 10,
+//				'elementtype' => 'product',
+//				'unique' => 0,
+//				'required' => 0,
+//				'default_value' => 250,
+//			),
+//			1 => array(
+//				'name' => 'proofread',
+//				'label' => 'Relecture',
+//				'type' => 'boolean',
+//				'pos' => 0,
+//				'size' => null,
+//				'elementtype' => 'product',
+//				'unique' => 0,
+//				'required' => 0,
+//				'default_value' => null,
+//			),
+//			2 => array(
+//				'name' => 'cdestar',
+//				'label' => 'Cde. STAR',
+//				'type' => 'varchar',
+//				'pos' => 0,
+//				'size' => 255,
+//				'elementtype' => 'facture',
+//				'unique' => 0,
+//				'required' => 0,
+//				'default_value' => null,
+//			),
+//			3 => array(
+//				'name' => 'weeklyhours',
+//				'label' => 'Durée de travail hebdomadaire (h)',
+//				'type' => 'int',
+//				'pos' => 0,
+//				'size' => 255,
+//				'elementtype' => 'user',
+//				'unique' => 0,
+//				'required' => true,
+//				'default_value' => 35,
+//			),
+//		);
 	}
 
 	/**
@@ -589,15 +638,15 @@ class modLead extends DolibarrModules
 	 * (defined in constructor) into Dolibarr database.
 	 * It also creates data directories
 	 *
-	 * @param string $options Enabling module ('', 'noboxes')
-	 * @return int if OK, 0 if KO
+	 * 	@param		string	$options	Options when enabling module ('', 'noboxes')
+	 * 	@return		int					1 if OK, 0 if KO
 	 */
 	public function init($options = '')
 	{
 		$sql = array();
-		
-		$result = $this->loadTables();
-		
+
+		$this->addExtrafields();
+
 		return $this->_init($sql, $options);
 	}
 
@@ -606,14 +655,96 @@ class modLead extends DolibarrModules
 	 * Remove from database constants, boxes and permissions from Dolibarr database.
 	 * Data directories are not deleted
 	 *
-	 * @param string $options Enabling module ('', 'noboxes')
-	 * @return int if OK, 0 if KO
+	 * 	@param		string	$options	Options when enabling module ('', 'noboxes')
+	 * 	@return		int					1 if OK, 0 if KO
 	 */
 	public function remove($options = '')
 	{
 		$sql = array();
-		
+
+		$this->loadTables();
+
+		$this->removeExtrafields();
+
 		return $this->_remove($sql, $options);
+	}
+
+	/**
+	 * Create the module provided extrafields
+	 *
+	 * @return int <=0 if KO, >0 if OK
+	 */
+	private function addExtrafields()
+	{
+		require_once DOL_DOCUMENT_ROOT . '/core/class/extrafields.class.php';
+
+		$result = array();
+		$extrafields =  new ExtraFields($this->db);
+
+		foreach ($this->extrafields as $extrafield) {
+			// Check if extrafield don't exist before creating it!
+			$existing_extrafields = $extrafields->fetch_name_optionals_label($extrafield['elementtype']);
+
+			$create = true;
+			if ($existing_extrafields[$extrafield['name']]) {
+				// Extrafield already exist: don't create, update
+				$create = false;
+			}
+
+			if ($create) {
+				$result[] = $extrafields->addExtraField(
+					$extrafield['name'],
+					$extrafield['label'],
+					$extrafield['type'],
+					$extrafield['pos'],
+					$extrafield['size'],
+					$extrafield['elementtype'],
+					$extrafield['unique'],
+					$extrafield['required'],
+					$extrafield['default_value'],
+					$extrafield['params']
+				);
+			} else {
+				$result[] = $extrafields->update(
+					$extrafield['name'],
+					$extrafield['label'],
+					$extrafield['type'],
+					$extrafield['size'],
+					$extrafield['elementtype'],
+					$extrafield['unique'],
+					$extrafield['required'],
+					$extrafield['pos'],
+					$extrafield['params']
+				);
+			}
+		}
+
+		return min($result);
+	}
+
+	/**
+	 * Remove the module provided extrafields
+	 *
+	 * @return int <=0 if KO, >0 if OK
+	 */
+	private function removeExtrafields()
+	{
+		// FIXME: Disabled for now. We don't want to lose data (!)
+		$result[] = true;
+		/*
+		require_once DOL_DOCUMENT_ROOT . '/core/class/extrafields.class.php';
+
+		$result = array();
+		$extrafields =  new ExtraFields($this->db);
+
+		foreach ($this->extrafields as $extrafield) {
+			$result[] = $extrafields->delete(
+				$extrafield['name'],
+				$extrafield['elementtype']
+			);
+		}
+		*/
+		return min($result);
 	}
 
 	/**
