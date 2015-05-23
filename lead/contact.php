@@ -165,7 +165,7 @@ if ($object->id > 0) {
 	
 	print '<tr>';
 	print '<td>';
-	print $langs->trans('LeadStep');
+	print $langs->trans('LeadStatus');
 	print '</td>';
 	print '<td>';
 	print $object->status_label;

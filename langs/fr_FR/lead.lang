@@ -56,8 +56,8 @@ Permission1053024=Exporter les appels d'offres
 #
 # Dictionnaires
 #
-LeadStatus = Module Appels d'offres — Étapes
-LeadType = Module Appels d'offres — Types
+LeadStatusDict = Module Appels d'offres — Étapes
+LeadTypeDict = Module Appels d'offres — Types
 
 
 #
@@ -75,6 +75,7 @@ LeadListLate=Appels d'offres en retard
 #
 # Status
 #
+LeadStatus = Étape de vente
 LeadStatus_PROSP=Prospection
 LeadStatus_CHIFF=Chiffrage
 LeadStatus_PROPO=Proposition
@@ -86,6 +87,7 @@ LeadStatus_LOST=Perdu
 #
 # Type
 #
+LeadType = Type
 LeadType_SUPP = Assistance
 LeadType_TRAIN=Formation
 LeadType_ADVI=Conseil
@@ -94,7 +96,6 @@ LeadType_ADVI=Conseil
 # Card
 #
 LeadCommercial=Responsable
-LeadStep = Étape de vente
 LeadAmountGuess=Montant annoncé HT
 LeadDeadLine=Date de clôture
 LeadDelete=Supprimer l'appel d'offres
