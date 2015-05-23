@@ -234,7 +234,7 @@ class Lead extends CommonObject {
 		}
 		if (empty($this->fk_c_status)) {
 			$error ++;
-			$this->errors[] = $langs->trans('ErrorFieldRequired', $langs->transnoentities('LeadStep'));
+			$this->errors[] = $langs->trans('ErrorFieldRequired', $langs->transnoentities('LeadStatus'));
 		}
 		if (empty($this->fk_c_type)) {
 			$error ++;
@@ -593,7 +593,7 @@ class Lead extends CommonObject {
 		}
 		if (empty($this->fk_c_status)) {
 			$error ++;
-			$this->errors[] = $langs->trans('ErrorFieldRequired', $langs->transnoentities('LeadStep'));
+			$this->errors[] = $langs->trans('ErrorFieldRequired', $langs->transnoentities('LeadStatus'));
 		}
 		if (empty($this->fk_c_type)) {
 			$error ++;

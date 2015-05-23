@@ -217,8 +217,8 @@ class modLead extends DolibarrModules
 				MAIN_DB_PREFIX . "c_lead_type"
 			),
 			'tablib' => array(
-				"LeadStatus",
-				"LeadType"
+				"LeadStatusDict",
+				"LeadTypeDict"
 			),
 			'tabsql' => array(
 				'SELECT f.rowid as rowid, f.code, f.label, f.active FROM ' . MAIN_DB_PREFIX . 'c_lead_status as f',

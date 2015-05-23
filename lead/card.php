@@ -262,7 +262,7 @@ if ($action == 'create' && $user->rights->lead->write) {
 	
 	print '<tr>';
 	print '<td class="fieldrequired"  width="20%">';
-	print $langs->trans('LeadStep');
+	print $langs->trans('LeadStatus');
 	print '</td>';
 	print '<td>';
 	print $formlead->select_lead_status($leadstatus, 'leadstatus', 0);
@@ -366,7 +366,7 @@ if ($action == 'create' && $user->rights->lead->write) {
 	
 	print '<tr>';
 	print '<td class="fieldrequired"  width="20%">';
-	print $langs->trans('LeadStep');
+	print $langs->trans('LeadStatus');
 	print '</td>';
 	print '<td>';
 	print $formlead->select_lead_status($object->fk_c_status, 'leadstatus', 0);
@@ -518,7 +518,7 @@ if ($action == 'create' && $user->rights->lead->write) {
 	
 	print '<tr>';
 	print '<td>';
-	print $langs->trans('LeadStep');
+	print $langs->trans('LeadStatus');
 	print '</td>';
 	print '<td>';
 	print $object->status_label;
