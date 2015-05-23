@@ -48,7 +48,7 @@ class ActionsLead // extends CommonObject
 			
 			$formlead = new FormLead($db);
 			
-			$ret = $lead->fetch_lead_link(($object->rowid ? $id = $object->rowid : $object->id), $object->table_element);
+			$ret = $lead->fetchLeadLink(($object->rowid ? $id = $object->rowid : $object->id), $object->table_element);
 			if ($ret < 0) {
 				setEventMessages(null, $lead->errors, 'errors');
 			}
@@ -183,7 +183,7 @@ class ActionsLead // extends CommonObject
 			require_once 'lead.class.php';
 			$lead = new Lead($db);
 			
-			$ret = $lead->fetch_lead_link(($object->rowid ? $id = $object->rowid : $object->id), $object->table_element);
+			$ret = $lead->fetchLeadLink(($object->rowid ? $id = $object->rowid : $object->id), $object->table_element);
 			if ($ret < 0) {
 				setEventMessages(null, $lead->errors, 'errors');
 			}
