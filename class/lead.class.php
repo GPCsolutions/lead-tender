@@ -1128,7 +1128,7 @@ class Lead extends CommonObject {
 		}
 		$sql .= " ORDER BY t.sourcetype";
 		
-		dol_syslog(get_class($this) . "::fetch_document_link sql=" . $sql, LOG_DEBUG);
+		dol_syslog(get_class($this) . "::fetchDocumentLink sql=" . $sql, LOG_DEBUG);
 		$resql = $this->db->query($sql);
 		if ($resql) {
 			while ( $obj = $this->db->fetch_object($resql) ) {
@@ -1147,7 +1147,7 @@ class Lead extends CommonObject {
 			return 1;
 		} else {
 			$this->error = "Error " . $this->db->lasterror();
-			dol_syslog(get_class($this) . "::fetch_document_link " . $this->error, LOG_ERR);
+			dol_syslog(get_class($this) . "::fetchDocumentLink " . $this->error, LOG_ERR);
 			
 			return - 1;
 		}
@@ -1180,7 +1180,7 @@ class Lead extends CommonObject {
 		}
 		$sql .= " ORDER BY t.sourcetype";
 		
-		dol_syslog(get_class($this) . "::fetch_document_link sql=" . $sql, LOG_DEBUG);
+		dol_syslog(get_class($this) . "::fetchDocumentLink sql=" . $sql, LOG_DEBUG);
 		$resql = $this->db->query($sql);
 		if ($resql) {
 			while ( $obj = $this->db->fetch_object($resql) ) {
@@ -1193,7 +1193,7 @@ class Lead extends CommonObject {
 			return 1;
 		} else {
 			$this->error = "Error " . $this->db->lasterror();
-			dol_syslog(get_class($this) . "::fetch_document_link " . $this->error, LOG_ERR);
+			dol_syslog(get_class($this) . "::fetchDocumentLink " . $this->error, LOG_ERR);
 			
 			return - 1;
 		}

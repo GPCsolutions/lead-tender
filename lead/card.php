@@ -644,7 +644,7 @@ if ($action == 'create' && $user->rights->lead->write) {
 			print '<td align="right" width="200">' . $langs->trans("Status") . '</td>';
 			print '</tr>';
 			
-			$ret = $object->fetch_document_link($id, $tablename);
+			$ret = $object->fetchDocumentLink($id, $tablename);
 			if ($ret < 0) {
 				setEventMessages(null, $object->errors, 'errors');
 			}
