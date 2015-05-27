@@ -238,10 +238,18 @@ if ($action == "add") {
 	$result=$object->update($user);
 	if ($result < 0) {
 		setEventMessages(null, $object->errors, 'errors');
-	}else {
+	} else {
 		header('Location:' . $_SERVER["PHP_SELF"] . '?id=' . $object->id);
 	}
-	
+} elseif ($action=="confirm_win" && $confirm=='yes') {
+	//Status 6=WIN hard coded, loaded by default in data.sql dictionnary (but check is done in this card that call this method)
+	$object->fk_c_status=6;
+	$result=$object->update($user);
+	if ($result < 0) {
+		setEventMessages(null, $object->errors, 'errors');
+	} else {
+		header('Location:' . $_SERVER["PHP_SELF"] . '?id=' . $object->id);
+	}
 }
 
 /*
@@ -535,9 +543,37 @@ if ($action == 'create' && $user->rights->lead->write) {
 	if ($action == 'delete') {
 		$formconfirm = $form->formconfirm($_SERVER["PHP_SELF"] . '?id=' . $object->id, $langs->trans('LeadDelete'), $langs->trans('LeadConfirmDelete'), 'confirm_delete', '', 0, 1);
 	}
-	
-	if ($action == 'close') {
-		$formconfirm = $form->formconfirm($_SERVER["PHP_SELF"] . '?id=' . $object->id, $langs->trans('LeadLost'), $langs->trans('LeadConfirmLost'), 'confirm_lost', '', 0, 1);
+
+	if ($action == 'win') {
+		$questions = array();
+		$questions[] = array(
+			// TODO: self
+			//'label' => 'Adjudicataire',
+		);
+		$questions[] = array(
+			'label' => 'Montant',
+			'type' => 'text'
+		);
+
+		$formconfirm = $form->formconfirm($_SERVER["PHP_SELF"] . '?id=' . $object->id, $langs->trans('LeadWin'), $langs->trans('LeadConfirmWin'), 'confirm_win', $questions, 0, 1);
+	}
+
+	if ($action == 'lost') {
+		$questions = array();
+		$questions[] = array(
+			'label' => 'Adjudicataire',
+			'type' => 'select',
+			'values' => array(
+				// TODO: list competitors
+				'1' => 'List competitors (Placeholder)',
+			)
+		);
+		$questions[] = array(
+			'label' => 'Montant',
+			'type' => 'text'
+		);
+
+		$formconfirm = $form->formconfirm($_SERVER["PHP_SELF"] . '?id=' . $object->id, $langs->trans('LeadLost'), $langs->trans('LeadConfirmLost'), 'confirm_lost', $questions, 0, 1);
 	}
 	
 	// Clone confirmation
@@ -700,8 +736,11 @@ if ($action == 'create' && $user->rights->lead->write) {
 	if ($user->rights->lead->write) {
 		print '<div class="inline-block divButAction"><a class="butAction" href="' . $_SERVER['PHP_SELF'] . '?id=' . $object->id . '&action=edit">' . $langs->trans("Edit") . "</a></div>\n";
 		print '<div class="inline-block divButAction"><a class="butAction" href="' . $_SERVER['PHP_SELF'] . '?id=' . $object->id . '&action=clone">' . $langs->trans("Clone") . "</a></div>\n";
-		if ($object->status[7]==$langs->trans('LeadStatus_LOST') && $object->fk_c_status!=7) {
-			print '<div class="inline-block divButAction"><a class="butAction" href="' . $_SERVER['PHP_SELF'] . '?id=' . $object->id . '&action=close">' . $langs->trans("LeadLost") . "</a></div>\n";
+		if ($object->status[6]==$langs->trans('LeadStatus_WIN') && $object->fk_c_status!=6 && $object->fk_c_status !=7) {
+			print '<div class="inline-block divButAction"><a class="butAction" href="' . $_SERVER['PHP_SELF'] . '?id=' . $object->id . '&action=win">' . $langs->trans("LeadWin") . "</a></div>\n";
+		}
+		if ($object->status[7]==$langs->trans('LeadStatus_LOST') && $object->fk_c_status!=7 && $object->fk_c_status !=6) {
+			print '<div class="inline-block divButAction"><a class="butAction" href="' . $_SERVER['PHP_SELF'] . '?id=' . $object->id . '&action=lost">' . $langs->trans("LeadLost") . "</a></div>\n";
 		}
 	} else {
 		print '<div class="inline-block divButAction"><a class="butActionRefused" href="#" title="' . dol_escape_htmltag($langs->trans("anoughPermissions")) . '">' . $langs->trans("Edit") . "</a></div>";

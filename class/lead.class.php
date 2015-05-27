@@ -628,7 +628,7 @@ class Lead extends CommonObject {
 			$sql .= " tms='" . $this->db->idate(dol_now()) . "'";
 			
 			$sql .= " WHERE rowid=" . $this->id;
-			
+
 			$this->db->begin();
 			
 			dol_syslog(get_class($this) . "::update sql=" . $sql, LOG_DEBUG);
@@ -1280,9 +1280,13 @@ class Lead extends CommonObject {
 		global $langs;
 		
 		$error=0;
-		
+
+		if (empty($this->listofreferent['propal'])) {
+			return null;
+		}
+
 		$this->db->begin();
-		
+
 		if (! empty($conf->propal->enabled))
 			require_once DOL_DOCUMENT_ROOT . '/comm/propal/class/propal.class.php';
 		

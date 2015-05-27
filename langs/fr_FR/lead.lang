@@ -106,20 +106,23 @@ LeadDescription=Description
 LeadDocuments = Documents associés
 LeadAddElement=Associer
 LeadLate=Appel d'offres en retard
-ConfirmCloneLead=Etes vous sur de cloné le lead
-LeadShowLead=Affiché le lead
+ConfirmCloneLead=Êtes vous sur de vouloir cloner l'appel d'offres ?
+LeadShowLead=Afficher l'appel d'offres
 SelectElement=Selectionner l'élément
-LeadLink=Lead associé(s)
+LeadLink=Appels d'offres associé(s)
+LeadWin=Appel d'offres gagné
+LeadConfirmWin=Clôturer l'appel d'offre à l'état gagné ?
 LeadLost=Appel d'offres perdu
-LeadConfirmLost=Toute les proposition commerciale associées a cet appel d'offres seront mises au status "Clos/Non signé" ?
-LeadPropalCloseByLead=Proposition cloturé par l'appel d'offres %s perdu
+LeadConfirmLost=Clôturer l'appel d'offre à l'état perdu ?
+LeadPropalCloseByLead=Proposition cloturée par l'appel d'offres %s perdu
 LeadObjectWindExists=Des propositions signées ou des factures existent (Le statut de l'appel d'offres devrait être gagné)
-LeadLastLeadUpdated=Les %s derniers appels d'offres modifiées
+LeadLastLeadUpdated=Les %s derniers appels d'offres modifiés
+Clone=Cloner
 
 #
 # Export
 #
-ExportDataset_lead=Lead
+ExportDataset_lead=Appel d'offres
 LeadRefExt=Ref. Ext
 LeadStepCode=Etape de vente Code
 LeadStepLabel=Etape de vente Libellé
@@ -130,7 +133,7 @@ lead@lead=Appels d'offres
 #
 # List
 #
-LeadDateDebut = Date de Debut
+LeadDateDebut = Date de début
 
 #
 # Graph
