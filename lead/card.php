@@ -255,7 +255,9 @@ $formlead = new FormLead($db);
 
 // Secteur géographique
 $object->fetchObjectLinked( null, null, $object->id, $object->element );
-$geo_ids = $object->linkedObjectsIds['c_departements'];
+if($object->linkedObjectsIds['c_departements']) {
+	$geo_ids = $object->linkedObjectsIds['c_departements'];
+}
 
 // Adjudicataire
 $tenderer = new Societe( $db );
