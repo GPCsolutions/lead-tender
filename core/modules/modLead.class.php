@@ -681,6 +681,9 @@ class modLead extends DolibarrModules
 		$result = array();
 		$extrafields =  new ExtraFields($this->db);
 
+		// No extrafield, do nothing
+		if (! is_array($this->extrafields)) return 0;
+
 		foreach ($this->extrafields as $extrafield) {
 			// Check if extrafield don't exist before creating it!
 			$existing_extrafields = $extrafields->fetch_name_optionals_label($extrafield['elementtype']);
