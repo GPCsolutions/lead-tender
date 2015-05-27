@@ -38,6 +38,7 @@ if (! empty($conf->commande->enabled))
 if (!empty($conf->global->LEAD_GRP_USER_AFFECT))
 	require_once DOL_DOCUMENT_ROOT.'/user/class/usergroup.class.php';
 require_once DOL_DOCUMENT_ROOT . '/core/class/html.formcompany.class.php';
+require_once DOL_DOCUMENT_ROOT . '/societe/class/societe.class.php';
 
 // Security check
 if (! $user->rights->lead->read)
@@ -150,6 +151,10 @@ if ($action == "add") {
 		$object->add_object_linked( 'c_departements', $g_id );
 	}
 
+	// Adjudicataire
+	$fk_tenderer = GETPOST('tenderer_id', 'int');
+	$object->add_object_linked('soc', $fk_tenderer);
+
 	$propalid = GETPOST('propalid','int');
 	if (!empty($propalid)) {
 		$tablename = 'propal';
@@ -186,6 +191,11 @@ if ($action == "add") {
 		foreach ($geo_ids as $g_id) {
 			$object->add_object_linked( 'c_departements', $g_id );
 		}
+
+		// Adjudicataire
+		$fk_tenderer = GETPOST('tenderer_id', 'int');
+		$object->deleteObjectLinked(null, 'soc'); // Cleanup because we don't know deselected
+		$object->add_object_linked('soc', $fk_tenderer);
 
 		header('Location:' . $_SERVER["PHP_SELF"] . '?id=' . $object->id);
 	}
@@ -246,6 +256,14 @@ $formlead = new FormLead($db);
 // Secteur géographique
 $object->fetchObjectLinked( null, null, $object->id, $object->element );
 $geo_ids = $object->linkedObjectsIds['c_departements'];
+
+// Adjudicataire
+$tenderer = new Societe( $db );
+$object->fetchObjectLinked( $tenderer->id, $tenderer->element );
+$tenderer_id = $object->linkedObjectsIds['soc'][0];
+if ($tenderer_id) {
+	$tenderer->fetch( $tenderer_id );
+}
 
 $now = dol_now();
 // Add new proposal
@@ -345,6 +363,14 @@ if ($action == 'create' && $user->rights->lead->write) {
 	print '</td>';
 	print '</tr>';
 
+	// Adjudicataire
+	if ($user->rights->societe->lire) {
+		print '<tr>';
+		print '<td><label for="tenderer_id">Adjudicataire</label></td>';
+		print '<td>';
+		print $form->select_thirdparty_list(null, 'tenderer_id', null, 1 );
+		print '</td></tr>';
+	}
 
 	print '<tr>';
 	print '<td>';
@@ -460,6 +486,15 @@ if ($action == 'create' && $user->rights->lead->write) {
 	);
 	print '</td>';
 	print '</tr>';
+
+	// Adjudicataire
+	if ($user->rights->societe->lire) {
+		print '<tr>';
+		print '<td><label for="tenderer_id">Adjudicataire</label></td>';
+		print '<td>';
+		print $form->select_thirdparty_list($tenderer_id, 'tenderer_id', null, 1 );
+		print '</td></tr>';
+	}
 
 	print '<tr>';
 	print '<td>';
@@ -627,6 +662,12 @@ if ($action == 'create' && $user->rights->lead->write) {
 		true
 	);
 	print '</td>';
+	print '</tr>';
+
+	// Adjudicataire
+	print '<tr>';
+	print '<td>Adjudicataire</td>';
+	print '<td>' . ( $tenderer->id ? $tenderer->getNomUrl( true ) : '' ) . '</td>';
 	print '</tr>';
 
 	print '<tr>';
