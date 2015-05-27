@@ -110,9 +110,9 @@ ConfirmCloneLead=Etes vous sur de cloné le lead
 LeadShowLead=Affiché le lead
 SelectElement=Selectionner l'élément
 LeadLink=Lead associé(s)
-LeadLost=Appel d'offres perdue
+LeadLost=Appel d'offres perdu
 LeadConfirmLost=Toute les proposition commerciale associées a cet appel d'offres seront mises au status "Clos/Non signé" ?
-LeadPropalCloseByLead=Proposition cloturé par l'appel d'offres %s perdue
+LeadPropalCloseByLead=Proposition cloturé par l'appel d'offres %s perdu
 LeadObjectWindExists=Des propositions signées ou des factures existent (Le statut de l'appel d'offres devrait être gagné)
 LeadLastLeadUpdated=Les %s derniers appels d'offres modifiées
 

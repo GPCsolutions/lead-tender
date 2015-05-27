@@ -57,7 +57,7 @@ class box_lead extends ModeleBoxes
 		$langs->load("boxes");
 		$langs->load("lead@lead");
 		
-		$this->boxlabel = $langs->transnoentitiesnoconv("LeadLate");
+		$this->boxlabel = $langs->transnoentitiesnoconv("LeadListLate");
 	}
 
 	/**
@@ -80,7 +80,7 @@ class box_lead extends ModeleBoxes
 			't.date_closure<' => dol_now()
 		));
 		
-		$text = $langs->trans("LeadLate", $max);
+		$text = $langs->trans("LeadListLate", $max);
 		$this->info_box_head = array(
 			'text' => $text,
 			'limit' => dol_strlen($text)
