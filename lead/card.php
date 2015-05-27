@@ -37,6 +37,7 @@ if (! empty($conf->commande->enabled))
 	require_once DOL_DOCUMENT_ROOT . '/commande/class/commande.class.php';
 if (!empty($conf->global->LEAD_GRP_USER_AFFECT))
 	require_once DOL_DOCUMENT_ROOT.'/user/class/usergroup.class.php';
+require_once DOL_DOCUMENT_ROOT . '/core/class/html.formcompany.class.php';
 
 // Security check
 if (! $user->rights->lead->read)
@@ -67,9 +68,11 @@ $leadtype = GETPOST('leadtype', 'int');
 $amount_guess = GETPOST('amount_guess');
 $description = GETPOST('description');
 $deadline = dol_mktime(0, 0, 0, GETPOST('deadlinemonth'), GETPOST('deadlineday'), GETPOST('deadlineyear'));
+$geo_ids = GETPOST('geo_ids', 'array');
 
 $object = new Lead($db);
 $extrafields = new ExtraFields($db);
+$formcompany= new FormCompany($db);
 
 $error = 0;
 
@@ -140,8 +143,13 @@ if ($action == "add") {
 		$action = 'create';
 		setEventMessages(null, $object->errors, 'errors');
 		$error++;
-	} 
-	
+	}
+
+	// Store secteur géographique
+	foreach ($geo_ids as $g_id) {
+		$object->add_object_linked( 'c_departements', $g_id );
+	}
+
 	$propalid = GETPOST('propalid','int');
 	if (!empty($propalid)) {
 		$tablename = 'propal';
@@ -173,6 +181,12 @@ if ($action == "add") {
 		$action = 'edit';
 		setEventMessages(null, $object->errors, 'errors');
 	} else {
+		// Store secteur géographique
+		$object->deleteObjectLinked( null, 'c_departements' ); // Cleanup because we don't know deselected
+		foreach ($geo_ids as $g_id) {
+			$object->add_object_linked( 'c_departements', $g_id );
+		}
+
 		header('Location:' . $_SERVER["PHP_SELF"] . '?id=' . $object->id);
 	}
 } elseif ($action == 'confirm_delete' && $confirm == 'yes' && $user->rights->lead->delete) {
@@ -228,6 +242,10 @@ llxHeader('', $langs->trans('Module105302Name'));
 
 $form = new Form($db);
 $formlead = new FormLead($db);
+
+// Secteur géographique
+$object->fetchObjectLinked( null, null, $object->id, $object->element );
+$geo_ids = $object->linkedObjectsIds['c_departements'];
 
 $now = dol_now();
 // Add new proposal
@@ -310,7 +328,24 @@ if ($action == 'create' && $user->rights->lead->write) {
 	print $form->select_date($deadline, 'deadline', 0, 0, 0, "addlead", 1, 1, 0, 0);
 	print '</td>';
 	print '</tr>';
-	
+
+	// Secteur géographique
+	print '<tr>';
+	print '<td class="tdtop">';
+	print '<label for="geo_ids[]">Secteur géographique</label>';
+	print '</td>';
+	print '<td colspan="3">';
+	print $formcompany->select_state(
+		$geo_ids,
+		'FR',
+		'geo_ids[]',
+		false,
+		true
+	);
+	print '</td>';
+	print '</tr>';
+
+
 	print '<tr>';
 	print '<td>';
 	print $langs->trans('LeadDescription');
@@ -409,7 +444,23 @@ if ($action == 'create' && $user->rights->lead->write) {
 	print $form->select_date($object->date_closure, 'deadline', 0, 0, 0, "addlead", 1, 1, 0, 0);
 	print '</td>';
 	print '</tr>';
-	
+
+	// Secteur géographique
+	print '<tr>';
+	print '<td class="tdtop">';
+	print '<label for="geo_ids[]">Secteur géographique</label>';
+	print '</td>';
+	print '<td colspan="3">';
+	print $formcompany->select_state(
+		$geo_ids,
+		'FR',
+		'geo_ids[]',
+		false,
+		true
+	);
+	print '</td>';
+	print '</tr>';
+
 	print '<tr>';
 	print '<td>';
 	print $langs->trans('LeadDescription');
@@ -560,7 +611,24 @@ if ($action == 'create' && $user->rights->lead->write) {
 	print $object->getRealAmount() . $langs->getCurrencySymbol($conf->currency);
 	print '</td>';
 	print '</tr>';
-	
+
+	// Secteur géographique
+	print '<tr>';
+	print '<td class="tdtop">';
+	print 'Secteur géographique';
+	print '</td>';
+	print '<td colspan="3">';
+	print $formcompany->select_state(
+		$geo_ids,
+		'FR',
+		'geo_ids[]',
+		false,
+		true,
+		true
+	);
+	print '</td>';
+	print '</tr>';
+
 	print '<tr>';
 	print '<td>';
 	print $langs->trans('LeadDescription');
