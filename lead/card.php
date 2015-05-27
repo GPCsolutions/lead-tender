@@ -331,10 +331,10 @@ if ($action == 'create' && $user->rights->lead->write) {
 
 	// Secteur géographique
 	print '<tr>';
-	print '<td class="tdtop">';
+	print '<td>';
 	print '<label for="geo_ids[]">Secteur géographique</label>';
 	print '</td>';
-	print '<td colspan="3">';
+	print '<td>';
 	print $formcompany->select_state(
 		$geo_ids,
 		'FR',
@@ -447,10 +447,10 @@ if ($action == 'create' && $user->rights->lead->write) {
 
 	// Secteur géographique
 	print '<tr>';
-	print '<td class="tdtop">';
+	print '<td>';
 	print '<label for="geo_ids[]">Secteur géographique</label>';
 	print '</td>';
-	print '<td colspan="3">';
+	print '<td>';
 	print $formcompany->select_state(
 		$geo_ids,
 		'FR',
@@ -614,10 +614,10 @@ if ($action == 'create' && $user->rights->lead->write) {
 
 	// Secteur géographique
 	print '<tr>';
-	print '<td class="tdtop">';
+	print '<td>';
 	print 'Secteur géographique';
 	print '</td>';
-	print '<td colspan="3">';
+	print '<td>';
 	print $formcompany->select_state(
 		$geo_ids,
 		'FR',
