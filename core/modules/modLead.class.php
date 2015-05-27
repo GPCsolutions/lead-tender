@@ -645,6 +645,8 @@ class modLead extends DolibarrModules
 	{
 		$sql = array();
 
+		$this->loadTables();
+
 		$this->addExtrafields();
 
 		return $this->_init($sql, $options);
@@ -661,8 +663,6 @@ class modLead extends DolibarrModules
 	public function remove($options = '')
 	{
 		$sql = array();
-
-		$this->loadTables();
 
 		$this->removeExtrafields();
 
