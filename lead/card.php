@@ -187,14 +187,14 @@ if ($action == "add") {
 		setEventMessages(null, $object->errors, 'errors');
 	} else {
 		// Store secteur géographique
-		$object->deleteObjectLinked( null, 'c_departements' ); // Cleanup because we don't know deselected
+		$object->deleteObjectLinked( null, 'c_departements', $object->id, $object->element ); // Cleanup because we don't know deselected
 		foreach ($geo_ids as $g_id) {
 			$object->add_object_linked( 'c_departements', $g_id );
 		}
 
 		// Adjudicataire
 		$fk_tenderer = GETPOST('tenderer_id', 'int');
-		$object->deleteObjectLinked(null, 'soc'); // Cleanup because we don't know deselected
+		$object->deleteObjectLinked(null, 'soc', $object->id, $object->element); // Cleanup because we don't know deselected
 		$object->add_object_linked('soc', $fk_tenderer);
 
 		header('Location:' . $_SERVER["PHP_SELF"] . '?id=' . $object->id);
