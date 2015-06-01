@@ -46,8 +46,9 @@ $lineid = GETPOST('lineid', 'int');
 $action = GETPOST('action', 'alpha');
 
 // Security check
-if (! $user->rights->lead->read)
-	accessforbidden();
+if ($user->societe_id)
+	$socid = $user->societe_id;
+$result = restrictedArea($user, 'lead', $id);
 
 $object = new Lead($db);
 

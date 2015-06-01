@@ -26,8 +26,8 @@ INSERT INTO llx_c_lead_type(rowid,code,label,active) VALUES (1,'SUPP','Support',
 INSERT INTO llx_c_lead_type(rowid,code,label,active) VALUES (2,'TRAIN','Formation',1);
 INSERT INTO llx_c_lead_type(rowid,code,label,active) VALUES (3,'ADVI','Conseil',1);
 
-INSERT INTO llx_c_type_contact(rowid, element, source, code, libelle, active, module) VALUES (1053021,'lead','internal','SALESREPFOLL','Commercial à l''origine de l''affaire','1',null);
-INSERT INTO llx_c_type_contact(rowid, element, source, code, libelle, active, module) VALUES (1053022,'lead','external','SALESREPFOLL','Responsable suivi du paiement','1',null);
+INSERT INTO llx_c_type_contact(rowid, element, source, code, libelle, active, module) VALUES (1053021,'lead','internal','ORIG','Commercial à l''origine de l''affaire','1',null);
+INSERT INTO llx_c_type_contact(rowid, element, source, code, libelle, active, module) VALUES (1053021,'lead','external','SALESREPFOLL','Responsable suivi du paiement','1',null);
 
 
 
