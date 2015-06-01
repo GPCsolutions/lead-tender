@@ -65,7 +65,7 @@ if ($id > 0) {
 	if ($ret < 0)
 		setEventMessage($object->error, 'errors');
 	
-	$upload_dir = $conf->lead->dir_output . "/" . dol_sanitizeFileName($object->id);
+	$upload_dir = $conf->lead->dir_output . "/" . dol_sanitizeFileName($object->ref);
 }
 
 /*

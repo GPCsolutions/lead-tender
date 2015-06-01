@@ -46,7 +46,7 @@ class modLead extends DolibarrModules
 		// Id for module (must be unique).
 		// Use a free id here
 		// (See in Home -> System information -> Dolibarr for list of used modules id).
-		$this->numero = 105302;
+		$this->numero = 103111;
 		// Key text used to identify module (for permissions, menus, etc...)
 		$this->rights_class = 'lead';
 		
@@ -62,7 +62,7 @@ class modLead extends DolibarrModules
 		// (where XXX is value of numeric property 'numero' of module)
 		$this->description = "Description of module Lead";
 		// Possible values for version are: 'development', 'experimental' or version
-		$this->version = '0.0.1';
+		$this->version = '1.2';
 		// Key used in llx_const table to save module status enabled/disabled
 		// (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_' . strtoupper($this->name);
@@ -177,7 +177,7 @@ class modLead extends DolibarrModules
 		// Array to add new pages in new tabs
 		// Example:
 		$this->tabs = array(
-			'thirdparty:+tabLead:Module105302Name:lead@lead:$user->rights->lead->read:/lead/lead/list.php?socid=__ID__',
+			'thirdparty:+tabLead:Module105302Name:lead@lead:$user->rights->lead->read && ($object->client > 0 || $soc->client > 0):/lead/lead/list.php?socid=__ID__',
 			//'invoice:+tabAgefodd:AgfMenuSess:agefodd@agefodd:/lead/lead/list.php?search_invoiceid=__ID__',
 			//'propal:+tabAgefodd:AgfMenuSess:agefodd@agefodd:/lead/lead/list.php?search_propalid=__ID__',
 		// // To add a new tab identified by code tabname1
@@ -217,8 +217,8 @@ class modLead extends DolibarrModules
 				MAIN_DB_PREFIX . "c_lead_type"
 			),
 			'tablib' => array(
-				"LeadStatusDict",
-				"LeadTypeDict"
+				"LeadStatus",
+				"LeadType"
 			),
 			'tabsql' => array(
 				'SELECT f.rowid as rowid, f.code, f.label, f.active FROM ' . MAIN_DB_PREFIX . 'c_lead_status as f',
@@ -265,13 +265,13 @@ class modLead extends DolibarrModules
 		// Permissions
 		$this->rights = array(); // Permission array used by this module
 		$r = 0;
-		$this->rights[$r][0] = 1053021;
+		$this->rights[$r][0] = 1031111;
 		$this->rights[$r][1] = 'See Leads';
 		$this->rights[$r][3] = 1;
 		$this->rights[$r][4] = 'read';
 		$r ++;
 		
-		$this->rights[$r][0] = 1053022;
+		$this->rights[$r][0] = 1031112;
 		$this->rights[$r][1] = 'Update Leads';
 		$this->rights[$r][3] = 1;
 		$this->rights[$r][4] = 'write';
