@@ -755,124 +755,142 @@ if ($action == 'create' && $user->rights->lead->write) {
 		print '<div class="inline-block divButAction"><a class="butActionRefused" href="#" title="' . dol_escape_htmltag($langs->trans("anoughPermissions")) . '">' . $langs->trans("Delete") . "</a></div>";
 	}
 	print '</div>';
-	
-	print_fiche_titre($langs->trans('LeadDocuments'), '', 'lead@lead');
-	
-	foreach ($object->listofreferent as $key => $value) {
-		$title = $value['title'];
-		$classname = $value['class'];
-		$tablename = $value['table'];
-		$qualified = $value['test'];
-		
-		if ($qualified) {
-			print '<br>';
-			
-			print_fiche_titre($langs->trans($title));
-			
-			$selectList = $formlead->select_element($tablename, $object);
-			if ($selectList) {
-				print '<form action="' . $_SERVER["PHP_SELF"] . '?id=' . $id . '" method="post">';
-				print '<input type="hidden" name="tablename" value="' . $tablename . '">';
-				print '<input type="hidden" name="action" value="addelement">';
-				print '<table><tr><td>' . $langs->trans("SelectElement") . '</td>';
-				print '<td>' . $selectList . '</td>';
-				print '<td><input type="submit" class="button" value="' . $langs->trans("LeadAddElement") . '"></td>';
-				print '</tr></table>';
-				print '</form>';
-			}
-			print '<table class="noborder" width="100%">';
-			
-			print '<tr class="liste_titre">';
-			print '<td></td>';
-			print '<td width="100">' . $langs->trans("Ref") . '</td>';
-			print '<td width="100" align="center">' . $langs->trans("Date") . '</td>';
-			print '<td>' . $langs->trans("ThirdParty") . '</td>';
-			if (empty($value['disableamount']))
-				print '<td align="right" width="120">' . $langs->trans("AmountHT") . '</td>';
-			if (empty($value['disableamount']))
-				print '<td align="right" width="120">' . $langs->trans("AmountTTC") . '</td>';
-			print '<td align="right" width="200">' . $langs->trans("Status") . '</td>';
-			print '</tr>';
-			
-			$ret = $object->fetchDocumentLink($id, $tablename);
-			if ($ret < 0) {
-				setEventMessages(null, $object->errors, 'errors');
-			}
-			
-			$elementarray = array();
-			$elementarray = $object->doclines;
-			if (count($elementarray) > 0 && is_array($elementarray)) {
-				$var = true;
-				$total_ht = 0;
-				$total_ttc = 0;
-				$num = count($elementarray);
-				foreach ($elementarray as $line) {
-					/**
-					 * @var CommonObject $element
-					 */
-					$element = new $classname($db);
-					$element->fetch($line->fk_source);
-					$element->fetch_thirdparty();
-					
-					$var = ! $var;
-					print "<tr " . $bc[$var] . ">";
-					
-					print '<td width="1%">';
-					print '<a href="' . $_SERVER["PHP_SELF"] . '?id=' . $id . '&action=unlink&sourceid=' . $element->id . '&sourcetype=' . $tablename . '">' . img_picto($langs->trans('LeadUnlinkDoc'), 'unlink.png@lead') . '</a>';
-					print "</td>\n";
-					
-					// Ref
-					print '<td align="left">';
-					print $element->getNomUrl(1);
-					print "</td>\n";
-					
-					// Date
-					$date = $element->date;
-					if (empty($date))
-						$date = $element->datep;
-					if (empty($date))
-						$date = $element->date_contrat;
-					if (empty($date))
-						$date = $element->datev; // Fiche inter
-					print '<td align="center">' . dol_print_date($date, 'day') . '</td>';
-					
-					// Third party
-					print '<td align="left">';
-					if (is_object($element->client))
-						print $element->client->getNomUrl(1, '', 48);
-					print '</td>';
-					
-					// Amount
-					if (empty($value['disableamount']))
-						print '<td align="right">' . (isset($element->total_ht) ? price($element->total_ht) : '&nbsp;') . '</td>';
-						
-						// Amount
-					if (empty($value['disableamount']))
-						print '<td align="right">' . (isset($element->total_ttc) ? price($element->total_ttc) : '&nbsp;') . '</td>';
-						
-						// Status
-					print '<td align="right">' . $element->getLibStatut(5) . '</td>';
-					
-					print '</tr>';
-					
-					$total_ht = $total_ht + $element->total_ht;
-					$total_ttc = $total_ttc + $element->total_ttc;
+
+	if ($conf->propal->enabled && $user->rights->propal->lire) {
+		print_fiche_titre( $langs->trans( 'LeadDocuments' ), '', 'lead@lead' );
+
+		foreach ($object->listofreferent as $key => $value) {
+			$title = $value['title'];
+			$classname = $value['class'];
+			$tablename = $value['table'];
+			$qualified = $value['test'];
+
+			if ($qualified) {
+				print '<br>';
+
+				print_fiche_titre( $langs->trans( $title ) );
+
+				$selectList = $formlead->select_element( $tablename, $object );
+				if ($selectList) {
+					print '<form action="' . $_SERVER["PHP_SELF"] . '?id=' . $id . '" method="post">';
+					print '<input type="hidden" name="tablename" value="' . $tablename . '">';
+					print '<input type="hidden" name="action" value="addelement">';
+					print '<table><tr><td>' . $langs->trans( "SelectElement" ) . '</td>';
+					print '<td>' . $selectList . '</td>';
+					print '<td><input type="submit" class="button" value="' . $langs->trans( "LeadAddElement" ) . '"></td>';
+					print '</tr></table>';
+					print '</form>';
 				}
-				
-				print '<tr class="liste_total">';
-				print '<td>&nbsp;</td>';
-				print '<td colspan="3">' . $langs->trans("Number") . ': ' . $i . '</td>';
-				if (empty($value['disableamount']))
-					print '<td align="right" width="100">' . $langs->trans("TotalHT") . ' : ' . price($total_ht) . '</td>';
-				if (empty($value['disableamount']))
-					print '<td align="right" width="100">' . $langs->trans("TotalTTC") . ' : ' . price($total_ttc) . '</td>';
-				print '<td>&nbsp;</td>';
+				print '<table class="noborder" width="100%">';
+
+				print '<tr class="liste_titre">';
+				print '<td></td>';
+				print '<td width="100">' . $langs->trans( "Ref" ) . '</td>';
+				print '<td width="100" align="center">' . $langs->trans( "Date" ) . '</td>';
+				print '<td>' . $langs->trans( "ThirdParty" ) . '</td>';
+				if (empty( $value['disableamount'] )) {
+					print '<td align="right" width="120">' . $langs->trans( "AmountHT" ) . '</td>';
+				}
+				if (empty( $value['disableamount'] )) {
+					print '<td align="right" width="120">' . $langs->trans( "AmountTTC" ) . '</td>';
+				}
+				print '<td align="right" width="200">' . $langs->trans( "Status" ) . '</td>';
 				print '</tr>';
+
+				$ret = $object->fetchDocumentLink( $id, $tablename );
+				if ($ret < 0) {
+					setEventMessages( null, $object->errors, 'errors' );
+				}
+
+				$elementarray = array();
+				$elementarray = $object->doclines;
+				if (count( $elementarray ) > 0 && is_array( $elementarray )) {
+					$var = true;
+					$total_ht = 0;
+					$total_ttc = 0;
+					$num = count( $elementarray );
+					foreach ($elementarray as $line) {
+						/**
+						 * @var CommonObject $element
+						 */
+						$element = new $classname( $db );
+						$element->fetch( $line->fk_source );
+						$element->fetch_thirdparty();
+
+						$var = !$var;
+						print "<tr " . $bc[$var] . ">";
+
+						print '<td width="1%">';
+						print '<a href="' . $_SERVER["PHP_SELF"] . '?id=' . $id . '&action=unlink&sourceid=' . $element->id . '&sourcetype=' . $tablename . '">' . img_picto( $langs->trans( 'LeadUnlinkDoc' ),
+								'unlink.png@lead' ) . '</a>';
+						print "</td>\n";
+
+						// Ref
+						print '<td align="left">';
+						print $element->getNomUrl( 1 );
+						print "</td>\n";
+
+						// Date
+						$date = $element->date;
+						if (empty( $date )) {
+							$date = $element->datep;
+						}
+						if (empty( $date )) {
+							$date = $element->date_contrat;
+						}
+						if (empty( $date )) {
+							$date = $element->datev;
+						} // Fiche inter
+						print '<td align="center">' . dol_print_date( $date, 'day' ) . '</td>';
+
+						// Third party
+						print '<td align="left">';
+						if (is_object( $element->client )) {
+							print $element->client->getNomUrl( 1, '', 48 );
+						}
+						print '</td>';
+
+						// Amount
+						if (empty( $value['disableamount'] )) {
+							print '<td align="right">' . ( isset( $element->total_ht ) ? price( $element->total_ht ) : '&nbsp;' ) . '</td>';
+						}
+
+						// Amount
+						if (empty( $value['disableamount'] )) {
+							print '<td align="right">' . ( isset( $element->total_ttc ) ? price( $element->total_ttc ) : '&nbsp;' ) . '</td>';
+						}
+
+						// Status
+						print '<td align="right">' . $element->getLibStatut( 5 ) . '</td>';
+
+						print '</tr>';
+
+						$total_ht = $total_ht + $element->total_ht;
+						$total_ttc = $total_ttc + $element->total_ttc;
+					}
+
+					print '<tr class="liste_total">';
+					print '<td>&nbsp;</td>';
+					print '<td colspan="3">' . $langs->trans( "Number" ) . ': ' . $i . '</td>';
+					if (empty( $value['disableamount'] )) {
+						print '<td align="right" width="100">' . $langs->trans( "TotalHT" ) . ' : ' . price( $total_ht ) . '</td>';
+					}
+					if (empty( $value['disableamount'] )) {
+						print '<td align="right" width="100">' . $langs->trans( "TotalTTC" ) . ' : ' . price( $total_ttc ) . '</td>';
+					}
+					print '<td>&nbsp;</td>';
+					print '</tr>';
+				}
+				print "</table>";
 			}
-			print "</table>";
 		}
 	}
 }
+
+// Contacts
+print_fiche_titre( $langs->trans( 'Contacts' ), '', 'lead@lead' );
+$permission = false; // Don't allow adding
+$res = include '../tpl/contacts.tpl.php';
 
 llxFooter();
 $db->close();

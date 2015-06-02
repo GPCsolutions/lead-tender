@@ -24,7 +24,9 @@ if (! class_exists('FormCompany')) {
 
 $module = $object->element;
 
-$permission = $user->rights->$module->write;
+if (null === $permission) {
+	$permission = $user->rights->$module->write;
+}
 
 $formcompany = new FormCompany($db);
 $companystatic = new Societe($db);

@@ -186,7 +186,7 @@ if ($object->id > 0) {
 	print '</div>';
 	
 	print '<br>';
-	
+
 	$res = @include '../tpl/contacts.tpl.php';
 }
 
