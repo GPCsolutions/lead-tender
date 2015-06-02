@@ -1,6 +1,7 @@
 <?php
 /* 
  * Copyright (C) 2014 Florian HENRY <florian.henry@open-concept.pro>
+ * Copyright (C) 2015 Raphaël Doursenaud <rdoursenaud@gpcsolutions.fr>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,20 +18,19 @@
  */
 
 /**
- * \file		core/boxes/mybox.php
- * \ingroup	mymodule
- * \brief		This file is a sample box definition file
- * Put some comments here
+ * \file	core/boxes/box_lead_current.php
+ * \ingroup	lead
+ * \brief	Current leads box
  */
 include_once DOL_DOCUMENT_ROOT . "/core/boxes/modules_boxes.php";
 
 /**
  * Class to manage the box
  */
-class box_lead extends ModeleBoxes
+class box_lead_current extends ModeleBoxes
 {
 
-	public $boxcode = "lead";
+	public $boxcode = "lead_current";
 
 	public $boximg = "lead@lead";
 
@@ -57,7 +57,7 @@ class box_lead extends ModeleBoxes
 		$langs->load("boxes");
 		$langs->load("lead@lead");
 		
-		$this->boxlabel = $langs->transnoentitiesnoconv("LeadLate");
+		$this->boxlabel = $langs->transnoentitiesnoconv("LeadList");
 	}
 
 	/**
@@ -77,11 +77,10 @@ class box_lead extends ModeleBoxes
 		
 		$lead = new Lead($db);
 		
-		$lead->fetch_all('DESC', 't.date_closure', $max, 0, array(
-			't.date_closure<' => dol_now()
-		));
+		$lead->fetch_all('DESC', 't.ref', $max, 0);
 		
-		$text = $langs->trans("LeadLate", $max);
+		$text = $langs->trans("LeadList");
+		$text .= " (" . $langs->trans("LastN", $max) . ")";
 		$this->info_box_head = array(
 			'text' => $text,
 			'limit' => dol_strlen($text)

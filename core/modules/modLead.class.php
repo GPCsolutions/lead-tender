@@ -253,13 +253,14 @@ class modLead extends DolibarrModules
 		// Boxes
 		// Add here list of php file(s) stored in core/boxes that contains class to show a box.
 		$this->boxes = array(); // Boxes list
+
 		$r = 0;
-		// Example:
-		
-		$this->boxes[$r][1] = "box_lead@lead";
-		// $r ++;
+		$this->boxes[$r][1] = "box_lead_current@lead";
+		$r ++;
+		$this->boxes[$r][1] = "box_lead_late@lead";
 		/*
-		 * $this->boxes[$r][1] = "myboxb.php"; $r++;
+		 * $r ++;
+		 * $this->boxes[][1] = "myboxb.php"; $r++;
 		 */
 		
 		// Permissions
