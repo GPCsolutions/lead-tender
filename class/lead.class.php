@@ -484,7 +484,7 @@ class Lead extends CommonObject {
 		}
 		
 		if (! empty($limit)) {
-			$sql .= ' ' . $this->db->plimit($limit + 1, $offset);
+			$sql .= ' ' . $this->db->plimit($limit, $offset);
 		}
 		
 		dol_syslog(get_class($this) . "::fetch_all sql=" . $sql, LOG_DEBUG);

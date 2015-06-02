@@ -207,7 +207,7 @@ if (!empty($socid)) {
 	$soc = new Societe($db);
 	$soc->fetch($socid);
 	$head = societe_prepare_head($soc);
-	
+
 	dol_fiche_head($head, 'tabLead', $langs->trans("Module105302Name"),0,dol_buildpath('/lead/img/object_lead.png', 1),1);
 }
 /*if (! empty($search_invoiceid) || ! empty($search_invoiceref)) {

@@ -147,3 +147,8 @@ LeadAmountOfLead=Montant des appels d'offres
 LeadAmountOfLeadsByMonth=Montant des appels d'offres par mois
 LeadTransRateOfLead=Taux de transformation
 LeadTransRateOfLeadsByMonth=Taux de transformation par mois
+
+#
+# Boxes
+#
+LastN=%s derniers
